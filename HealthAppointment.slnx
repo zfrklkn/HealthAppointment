@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Appointment/">
+    <Project Path="Src/Services/Appointment/HealthAppointment.Appointment.API/HealthAppointment.Appointment.API.csproj" />
+    <Project Path="src/Services/Appointment/HealthAppointment.Appointment.Application/HealthAppointment.Appointment.Application.csproj" Id="5444f0b6-163e-470c-9b36-c3b418676bf0" />
+    <Project Path="src/Services/Appointment/HealthAppointment.Appointment.Domain/HealthAppointment.Appointment.Domain.csproj" Id="b2ea8655-c127-4f8b-8b2d-7c2693083706" />
+    <Project Path="src/Services/Appointment/HealthAppointment.Appointment.Infrastructure/HealthAppointment.Appointment.Infrastructure.csproj" Id="4be66d50-8b9d-4e21-98ae-cf8ebab11dff" />
+  </Folder>
+  <Folder Name="/src/Services/Doctor/">
+    <Project Path="src/Services/Doctor/HealthAppointment.Doctor.API/HealthAppointment.Doctor.API.csproj" Id="d3b4c629-bf52-4b29-a9f0-1dc3bdae1970" />
+    <Project Path="src/Services/Doctor/HealthAppointment.Doctor.Application/HealthAppointment.Doctor.Application.csproj" Id="6620c63e-78cb-49dd-86a9-f68c12ea67ac" />
+    <Project Path="src/Services/Doctor/HealthAppointment.Doctor.Domain/HealthAppointment.Doctor.Domain.csproj" Id="17a1d24f-3fde-4106-93e3-29718f73aa38" />
+    <Project Path="src/Services/Doctor/HealthAppointment.Doctor.Infrastructure/HealthAppointment.Doctor.Infrastructure.csproj" Id="aa4d0103-571a-45b5-b00a-5d5dd8bcfbdc" />
+  </Folder>
+</Solution>

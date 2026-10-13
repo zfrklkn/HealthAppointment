@@ -18,4 +18,7 @@ public interface IDoctorRepository
     Task UpdateAsync(
         Doc doctor,
         CancellationToken cancellationToken = default);
+
+    Task<bool> LockDoctorForScheduleChangeAsync(Guid doctorId, CancellationToken cancellationToken = default);
+
 }

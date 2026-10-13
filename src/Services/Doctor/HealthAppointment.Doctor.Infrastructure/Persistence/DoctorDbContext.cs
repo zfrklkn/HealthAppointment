@@ -1,6 +1,6 @@
-﻿using HealthAppointment.Doctor.Domain.Entities;
-using Doc = HealthAppointment.Doctor.Domain.Entities.Doctor;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using DoctorEntity = HealthAppointment.Doctor.Domain.Entities.Doctor;
+using DoctorSchedule = HealthAppointment.Doctor.Domain.Entities.DoctorSchedule;
 
 namespace HealthAppointment.Doctor.Infrastructure.Persistence;
 
@@ -12,15 +12,15 @@ public class DoctorDbContext : DbContext
         
     }
 
-    DbSet<Doc> Doctors => Set<Doc>();
-    DbSet<DoctorSchedule> DoctorSchedules => Set<DoctorSchedule>();
+    public DbSet<DoctorEntity> Doctors => Set<DoctorEntity>();
+    public DbSet<DoctorSchedule> DoctorSchedules => Set<DoctorSchedule>();
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Doc>(entity =>
+        modelBuilder.Entity<DoctorEntity>(entity =>
         {
             entity.HasKey(d => d.Id);
 
@@ -75,7 +75,7 @@ public class DoctorDbContext : DbContext
 
             entity.ToTable("DoctorSchedules");
 
-            entity.HasOne<Doc>()
+            entity.HasOne<DoctorEntity>()
                 .WithMany()
                 .HasForeignKey(s => s.DoctorId)
                 .OnDelete(DeleteBehavior.Restrict);

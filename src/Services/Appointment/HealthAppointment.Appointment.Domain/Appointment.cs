@@ -31,7 +31,7 @@ public class Appointment
         StartTime = startTime;
         EndTime = endTime;
         Reason = reason;
-        Status = AppointmentStatus.Confirmed;
+        Status = AppointmentStatus.Pending;
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -47,7 +47,7 @@ public class Appointment
 
     public DateTime EndTime { get; private set; }
 
-    public AppointmentStatus Status { get; private set; } = AppointmentStatus.Confirmed;
+    public AppointmentStatus Status { get; private set; } = AppointmentStatus.Pending;
 
     public string? Reason { get; private set; }
 

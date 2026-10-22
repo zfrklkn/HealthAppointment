@@ -17,6 +17,12 @@ public class AppointmentDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<AppointmentsEntity>(entity =>
+        {
+            entity.HasIndex(x => x.CreationCorrelationId)
+                  .IsUnique();
+        });
+
         modelBuilder.ApplyConfigurationsFromAssembly(
             typeof(AppointmentDbContext).Assembly);
     }

@@ -30,6 +30,9 @@ namespace HealthAppointment.Appointment.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("CreationCorrelationId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uuid");
 
@@ -56,6 +59,9 @@ namespace HealthAppointment.Appointment.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreationCorrelationId")
+                        .IsUnique();
 
                     b.HasIndex("DoctorId", "StartTime");
 

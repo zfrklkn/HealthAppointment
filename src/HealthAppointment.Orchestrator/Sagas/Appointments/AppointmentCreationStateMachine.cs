@@ -1,6 +1,5 @@
 ﻿
 using HealthAppointment.Contracts.Appointments;
-using HealthAppointment.Orchestrator.Contracts.Appointments;
 using MassTransit;
 
 namespace HealthAppointment.Orchestrator.Sagas.Appointments;

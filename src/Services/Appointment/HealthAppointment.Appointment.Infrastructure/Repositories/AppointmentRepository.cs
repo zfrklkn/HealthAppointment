@@ -64,4 +64,13 @@ public class AppointmentRepository : IAppointmentRepository
 
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<AppointmentEntity?> GetByCreationCorrelationIdAsync(Guid correlationId, CancellationToken cancellationToken = default)
+    {
+        return await _context.Appointments
+            .AsNoTracking()
+            .FirstOrDefaultAsync(
+                x => x.CreationCorrelationId == correlationId,
+                cancellationToken);
+    }
 }

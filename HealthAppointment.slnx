@@ -1,5 +1,8 @@
 <Solution>
   <Folder Name="/src/" />
+  <Folder Name="/src/Contracts/" Id="c8e42992-5e42-0c2b-dbfe-aa848d06431c">
+    <Project Path="src/Shared/HealthAppointment.Contracts/HealthAppointment.Contracts.csproj" Id="2b969d80-744f-4d3c-962a-c92ea7ad645a" />
+  </Folder>
   <Folder Name="/src/Services/" />
   <Folder Name="/src/Services/Appointment/">
     <Project Path="Src/Services/Appointment/HealthAppointment.Appointment.API/HealthAppointment.Appointment.API.csproj" />
@@ -13,14 +16,11 @@
     <Project Path="src/Services/Doctor/HealthAppointment.Doctor.Domain/HealthAppointment.Doctor.Domain.csproj" Id="17a1d24f-3fde-4106-93e3-29718f73aa38" />
     <Project Path="src/Services/Doctor/HealthAppointment.Doctor.Infrastructure/HealthAppointment.Doctor.Infrastructure.csproj" Id="aa4d0103-571a-45b5-b00a-5d5dd8bcfbdc" />
   </Folder>
-  <Folder Name="/src/Services/Patient/">
+  <Folder Name="/src/Services/Patient/" Id="d1bff857-1a78-57ba-df5f-46b5b63e7699">
     <Project Path="src/Services/Patient/HealthAppointment.Patient.API/HealthAppointment.Patient.API.csproj" Id="dbc576d2-6d10-419c-9b75-4d505499a71c" />
     <Project Path="src/Services/Patient/HealthAppointment.Patient.Application/HealthAppointment.Patient.Application.csproj" Id="80f098e4-57f4-463a-a3ca-ebbca0467990" />
     <Project Path="src/Services/Patient/HealthAppointment.Patient.Domain/HealthAppointment.Patient.Domain.csproj" Id="a75f44b9-489f-4965-b3de-0206c98c8f7f" />
     <Project Path="src/Services/Patient/HealthAppointment.Patient.Infrastructure/HealthAppointment.Patient.Infrastructure.csproj" Id="e39c24d6-2947-4ffb-a51a-e3158986d64c" />
-  </Folder>
-  <Folder Name="/src/Shared/">
-    <Project Path="src/Shared/HealthAppointment.Contracts/HealthAppointment.Contracts.csproj" Id="2b969d80-744f-4d3c-962a-c92ea7ad645a" />
   </Folder>
   <Project Path="src/HealthAppointment.Gateway/HealthAppointment.Gateway.csproj" Id="2de57a74-6d25-4781-878d-ff223e293fa8" />
   <Project Path="src/HealthAppointment.Orchestrator/HealthAppointment.Orchestrator.csproj" Id="f8a2046b-362d-41e2-aa77-67b8a5d9c9d7" />

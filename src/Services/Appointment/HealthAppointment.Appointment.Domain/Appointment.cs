@@ -10,7 +10,7 @@ public class Appointment
         // For EF Core
     }
 
-    public Appointment(Guid patientId, Guid doctorId, Guid specialtyId, DateTime startTime, DateTime endTime, string? reason = null)
+    public Appointment(Guid creationCorrelationId, Guid patientId, Guid doctorId, Guid specialtyId, DateTime startTime, DateTime endTime, string? reason = null)
     {
         if (patientId == Guid.Empty)
             throw new ArgumentException("PatientId boş olamaz.", nameof(patientId));
@@ -24,6 +24,10 @@ public class Appointment
         if (endTime <= startTime)
             throw new ArgumentException("Randevu bitiş zamanı başlangıç zamanından sonra olmalıdır.");
 
+        if (creationCorrelationId == Guid.Empty)
+            throw new ArgumentException("CreationCorrelationId boş olamaz.", nameof(creationCorrelationId));
+
+        CreationCorrelationId = creationCorrelationId;
         Id = Guid.NewGuid();
         PatientId = patientId;
         DoctorId = doctorId;
@@ -54,6 +58,8 @@ public class Appointment
     public DateTime CreatedAt { get; private set; }
 
     public DateTime? UpdatedAt { get; private set; }
+
+    public Guid CreationCorrelationId { get; private set; }
 
     public bool HasValidTimeRange()
     {

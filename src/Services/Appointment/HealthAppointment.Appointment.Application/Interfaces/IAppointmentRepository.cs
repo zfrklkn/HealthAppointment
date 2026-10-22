@@ -15,4 +15,6 @@ public interface IAppointmentRepository
     Task AddAsync(AppointmentEntity appointment, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(AppointmentEntity appointment, CancellationToken cancellationToken = default);
+
+    Task<AppointmentEntity?> GetByCreationCorrelationIdAsync(Guid correlationId, CancellationToken cancellationToken = default);
 }

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.2.0" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="9.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.20">
       <PrivateAssets>all</PrivateAssets>
@@ -19,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\HealthAppointment.Contracts\HealthAppointment.Contracts.csproj" />
     <ProjectReference Include="..\HealthAppointment.Doctor.Application\HealthAppointment.Doctor.Application.csproj" />
     <ProjectReference Include="..\HealthAppointment.Doctor.Infrastructure\HealthAppointment.Doctor.Infrastructure.csproj" />
   </ItemGroup>

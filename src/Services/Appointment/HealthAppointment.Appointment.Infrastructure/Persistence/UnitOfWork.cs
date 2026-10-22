@@ -37,6 +37,8 @@ public class UnitOfWork : IUnitOfWork, IAsyncDisposable
 
         try
         {
+            await _context.SaveChangesAsync(cancellationToken);
+
             await _transaction.CommitAsync(cancellationToken);
         }
         finally

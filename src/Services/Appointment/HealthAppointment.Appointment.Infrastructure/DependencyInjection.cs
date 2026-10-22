@@ -3,6 +3,7 @@ using HealthAppointment.Appointment.Application.Interfaces;
 using HealthAppointment.Appointment.Infrastructure.Messaging;
 using HealthAppointment.Appointment.Infrastructure.Persistence;
 using HealthAppointment.Appointment.Infrastructure.Repositories;
+using HealthAppointment.Contracts.Appointments;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,33 +25,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-        services.AddScoped<IAppointmentWorkflow, AppointmentWorkflow>();
-
-        services.AddMassTransit(x =>
-        {
-            x.UsingRabbitMq((context, cfg) =>
-            {
-                var rabbitMq = configuration.GetSection("RabbitMQ");
-
-                var host = rabbitMq["Host"]
-                    ?? throw new InvalidOperationException(
-                        "RabbitMQ:Host ayarı bulunamadı.");
-
-                var virtualHost = rabbitMq["VirtualHost"] ?? "/";
-                var username = rabbitMq["Username"]
-                    ?? throw new InvalidOperationException(
-                        "RabbitMQ:Username ayarı bulunamadı.");
-                var password = rabbitMq["Password"]
-                    ?? throw new InvalidOperationException(
-                        "RabbitMQ:Password ayarı bulunamadı.");
-
-                cfg.Host(host, virtualHost, h =>
-                {
-                    h.Username(username);
-                    h.Password(password);
-                });
-            });
-        });
+        services.AddScoped<IAppointmentWorkflow, AppointmentWorkflow>();        
 
         return services;
     }

@@ -1,5 +1,4 @@
-﻿
-namespace HealthAppointment.Orchestrator.Contracts.Appointments;
+﻿namespace HealthAppointment.Contracts.Appointments;
 
 public sealed record AppointmentCreated
 (

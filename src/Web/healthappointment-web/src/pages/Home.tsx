@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import DoctorCard from '../components/doctors/DoctorCard';
-import { mockDoctors } from '../data/mockDoctors';
+import { useDoctors } from '../hooks/useDoctors';
 import type { Doctor } from '../types/doctor';
 
 interface HomeProps {
@@ -23,6 +23,7 @@ const specialties = [
 export default function Home({ onSearch, onViewDoctor, onBookAppointment }: HomeProps) {
     const [query, setQuery] = useState('');
     const [specialty, setSpecialty] = useState('Tümü');
+    const { doctors, isLoading, error } = useDoctors();
 
     return (
         <>
@@ -140,16 +141,31 @@ export default function Home({ onSearch, onViewDoctor, onBookAppointment }: Home
                         Öne Çıkan Doktorlar
                     </h2>
 
-                    <div className="grid g2">
-                        {mockDoctors.map((doctor) => (
-                            <DoctorCard
-                                key={doctor.id}
-                                doctor={doctor}
-                                onViewProfile={onViewDoctor}
-                                onBookAppointment={onBookAppointment}
-                            />
-                        ))}
-                    </div>
+                    {isLoading ? (
+                        <p className="mut">Doktorlar yükleniyor...</p>
+                    ) : error ? (
+                        <p className="mut" role="alert">
+                            {error}
+                        </p>
+                    ) : doctors.length === 0 ? (
+                        <p className="mut">
+                            Henüz listelenecek doktor bulunmuyor.
+                        </p>
+                    ) : (
+                        <div className="grid g2">
+                            {doctors
+                                .filter((doctor) => doctor.isActive)
+                                .slice(0, 3)
+                                .map((doctor) => (
+                                    <DoctorCard
+                                        key={doctor.id}
+                                        doctor={doctor}
+                                        onViewProfile={onViewDoctor}
+                                        onBookAppointment={onBookAppointment}
+                                    />
+                                ))}
+                        </div>
+                    )}
                 </section>
             </div>
         </>

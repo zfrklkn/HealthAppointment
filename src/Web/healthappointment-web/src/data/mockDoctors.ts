@@ -11,7 +11,7 @@ export const mockDoctors: Doctor[] = [
         rating: 4.9,
         biography:
             '10+ yıl deneyim. Kronik hastalıkların takibi ve genel sağlık kontrolleri.',
-        isAvailable: true,
+        isActive: true,
     },
     {
         id: 'd2',
@@ -22,7 +22,7 @@ export const mockDoctors: Doctor[] = [
         rating: 4.8,
         biography:
             'Kalp ritim bozuklukları ve koruyucu kardiyoloji üzerine çalışmaktadır.',
-        isAvailable: true,
+        isActive: true,
     },
     {
         id: 'd3',
@@ -33,6 +33,6 @@ export const mockDoctors: Doctor[] = [
         rating: 4.7,
         biography:
             'Akne, egzama ve estetik dermatoloji alanlarında hizmet verir.',
-        isAvailable: true,
+        isActive: true,
     },
 ];

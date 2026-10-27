@@ -49,18 +49,19 @@ export default function DoctorProfile({
                         {initials}
                     </div>
 
-                    <div style={{ flex: 1 }}>
-                        <h1 style={{ marginBottom: 8 }}>{doctor.name}</h1>
-                        <p className="mut">{doctor.title}</p>
+                    {doctor.hospital && (
                         <p className="mut">📍 {doctor.hospital}</p>
+                    )}
+
+                    {doctor.rating !== null && (
                         <p>⭐ {doctor.rating} / 5</p>
-                    </div>
+                    )}
 
                     <span
-                        className={`bdg ${doctor.isAvailable ? 's-ok' : 's-gr'
+                        className={`bdg ${doctor.isActive ? 's-ok' : 's-gr'
                             }`}
                     >
-                        {doctor.isAvailable ? 'Uygun' : 'Dolu'}
+                        {doctor.isActive ? 'Aktif' : 'Pasif'}
                     </span>
                 </div>
 
@@ -77,7 +78,7 @@ export default function DoctorProfile({
                 <button
                     className="btn"
                     type="button"
-                    disabled={!doctor.isAvailable}
+                    disabled={!doctor.isActive}
                     style={{ marginTop: 28 }}
                     onClick={() => onBookAppointment(doctor)}
                 >

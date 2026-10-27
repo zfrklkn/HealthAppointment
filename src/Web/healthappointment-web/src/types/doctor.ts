@@ -4,8 +4,8 @@ export interface Doctor {
     name: string;
     title: string;
     specialty: string;
-    hospital: string;
-    rating: number;
+    hospital: string | null;
+    rating: number | null;
     biography: string;
-    isAvailable: boolean;
+    isActive: boolean;
 }

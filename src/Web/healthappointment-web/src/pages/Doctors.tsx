@@ -1,7 +1,8 @@
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import DoctorCard from '../components/doctors/DoctorCard';
-import { mockDoctors } from '../data/mockDoctors';
+import { doctorService } from '../services/doctorService';
+import { mapDoctorResponseToDoctor } from '../mappers/doctorMapper';
 import type { Doctor } from '../types/doctor';
 
 interface DoctorsProps {
@@ -19,14 +20,52 @@ export default function Doctors({
 }: DoctorsProps) {
     const [query, setQuery] = useState(initialQuery);
     const [specialty, setSpecialty] = useState(initialSpecialty);
+    const [doctors, setDoctors] = useState<Doctor[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        const fetchDoctors = async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+
+                const response = await doctorService.getAll(
+                    controller.signal
+                );
+
+                if (controller.signal.aborted) return;
+
+                const mappedDoctors = response.map(
+                    mapDoctorResponseToDoctor
+                );
+
+                setDoctors(mappedDoctors);
+            } catch {
+                if (controller.signal.aborted) return;
+
+                setError('Doktorlar yüklenirken bir hata oluştu.');
+            } finally {
+                if (!controller.signal.aborted) {
+                    setIsLoading(false);
+                }
+            }
+        };
+
+        void fetchDoctors();
+
+        return () => controller.abort();
+    }, []);
 
     const specialties = [
         'Tümü',
-        ...new Set(mockDoctors.map((doctor) => doctor.specialty)),
+        ...new Set(doctors.map((doctor) => doctor.specialty)),
     ];
 
     const filteredDoctors = useMemo(() => {
-        return mockDoctors.filter((doctor) => {
+        return doctors.filter((doctor) => {
             const matchesQuery = doctor.name
                 .toLocaleLowerCase('tr-TR')
                 .includes(query.trim().toLocaleLowerCase('tr-TR'));
@@ -37,7 +76,7 @@ export default function Doctors({
 
             return matchesQuery && matchesSpecialty;
         });
-    }, [query, specialty]);
+    }, [doctors, query, specialty]);
 
     return (
         <main className="wrap" style={{ padding: '40px 20px' }}>
@@ -70,28 +109,41 @@ export default function Doctors({
                 </select>
             </div>
 
-            <p className="mut" style={{ margin: '24px 0 16px' }}>
-                {filteredDoctors.length} doktor bulundu.
-            </p>
-
-            {filteredDoctors.length > 0 ? (
-                <div className="grid g2">
-                    {filteredDoctors.map((doctor) => (
-                        <DoctorCard
-                            key={doctor.id}
-                            doctor={doctor}
-                            onViewProfile={onViewDoctor}
-                            onBookAppointment={onBookAppointment}
-                        />
-                    ))}
+            {isLoading ? (
+                <div className="card" style={{ marginTop: 24 }}>
+                    <p className="mut">Doktorlar yükleniyor...</p>
+                </div>
+            ) : error ? (
+                <div className="card" style={{ marginTop: 24 }}>
+                    <h3>Bir hata oluştu</h3>
+                    <p className="mut">{error}</p>
                 </div>
             ) : (
-                <div className="card" style={{ textAlign: 'center' }}>
-                    <h3>Doktor bulunamadı</h3>
-                    <p className="mut">
-                        Farklı bir doktor adı veya branş deneyebilirsiniz.
+                <>
+                    <p className="mut" style={{ margin: '24px 0 16px' }}>
+                        {filteredDoctors.length} doktor bulundu.
                     </p>
-                </div>
+
+                    {filteredDoctors.length > 0 ? (
+                        <div className="grid g2">
+                            {filteredDoctors.map((doctor) => (
+                                <DoctorCard
+                                    key={doctor.id}
+                                    doctor={doctor}
+                                    onViewProfile={onViewDoctor}
+                                    onBookAppointment={onBookAppointment}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="card" style={{ textAlign: 'center' }}>
+                            <h3>Doktor bulunamadı</h3>
+                            <p className="mut">
+                                Arama kriterlerinize uygun doktor bulunamadı.
+                            </p>
+                        </div>
+                    )}
+                </>
             )}
         </main>
     );

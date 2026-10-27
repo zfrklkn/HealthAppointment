@@ -49,7 +49,9 @@ export default function BookAppointment({
 
                     <h3 style={{ marginTop: 20 }}>{doctor.name}</h3>
                     <p className="mut">{doctor.title}</p>
-                    <p className="mut">📍 {doctor.hospital}</p>
+                    {doctor.hospital && (
+                        <p className="mut">📍 {doctor.hospital}</p>
+                    )}
 
                     <span className="bdg s-ok">
                         {doctor.specialty}

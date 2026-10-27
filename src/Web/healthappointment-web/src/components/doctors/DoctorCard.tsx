@@ -36,16 +36,24 @@ export default function DoctorCard({
                         {doctor.title}
                     </div>
 
-                    <div className="mut" style={{ fontSize: 12 }}>
-                        📍 {doctor.hospital} · ★ {doctor.rating}
-                    </div>
+                    {(doctor.hospital || doctor.rating !== null) && (
+                        <div className="mut" style={{ fontSize: 12 }}>
+                            {doctor.hospital && (
+                                <span>📍 {doctor.hospital}</span>
+                            )}
+
+                            {doctor.rating !== null && (
+                                <span> ★ {doctor.rating}</span>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <span
-                    className={`bdg ${doctor.isAvailable ? 's-ok' : 's-gr'
+                    className={`bdg ${doctor.isActive ? 's-ok' : 's-gr'
                         }`}
                 >
-                    {doctor.isAvailable ? 'Uygun' : 'Dolu'}
+                    {doctor.isActive ? 'Aktif' : 'Pasif'}
                 </span>
             </div>
 
@@ -72,7 +80,7 @@ export default function DoctorCard({
 
                 <button
                     className="btn sm"
-                    disabled={!doctor.isAvailable}
+                    disabled={!doctor.isActive}
                     onClick={() => onBookAppointment(doctor)}
                 >
                     Randevu Al

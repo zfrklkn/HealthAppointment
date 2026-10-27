@@ -1,17 +1,32 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/layout/Header';
 import Home from './pages/Home';
 import Doctors from './pages/Doctors';
 import type { Doctor } from './types/doctor';
 import DoctorProfile from './pages/DoctorProfile';
 import BookAppointment from './pages/BookAppointment';
+import { doctorService } from './services/doctorService';
 
 function App() {
   const [page, setPage] = useState('home');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('Tümü');
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+
+  useEffect(() => {
+    const testDoctorApi = async () => {
+      try {
+        const doctors = await doctorService.getAll();
+
+        console.log('Doctor API - Gerçek Veriler:', doctors);
+      } catch (error) {
+        console.error('Doctor API bağlantı hatası:', error);
+      }
+    };
+
+    testDoctorApi();
+  }, []);
 
   const handleSearch = (query: string, specialty: string) => {
     setSearchQuery(query);
